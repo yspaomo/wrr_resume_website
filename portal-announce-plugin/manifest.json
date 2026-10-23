@@ -1,0 +1,12 @@
+{
+  "name": "补齐产品公告列表",
+  "id": "portal-announce-fill-20261023",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page",
+  "networkAccess": {
+    "allowedDomains": ["none"]
+  }
+}
