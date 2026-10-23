@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        font: 12px/1.5 -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans SC", sans-serif;
+        margin: 0;
+        padding: 16px;
+        color: #1f2022;
+      }
+      h1 {
+        font-size: 14px;
+        margin: 0 0 8px;
+      }
+      p {
+        margin: 0 0 8px;
+        color: #717171;
+      }
+      #log {
+        margin-top: 12px;
+        max-height: 280px;
+        overflow: auto;
+        background: #f5f6f8;
+        border-radius: 8px;
+        padding: 10px;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+      .ok { color: #107c10; }
+      .err { color: #c42b1c; }
+    </style>
+  </head>
+  <body>
+    <h1>补齐产品公告列表</h1>
+    <p>请先打开规范文件中的「门户运营端-产品公告」画板，插件会写入表头、10 行数据和底部分页。不会分离组件，也不会改组件定义。</p>
+    <div id="log">正在运行…</div>
+    <script>
+      const log = document.getElementById("log");
+      window.onmessage = (event) => {
+        const msg = event.data && event.data.pluginMessage;
+        if (!msg) return;
+        if (msg.type === "log") {
+          log.textContent += "\n" + msg.text;
+          log.scrollTop = log.scrollHeight;
+        } else if (msg.type === "done") {
+          log.className = "ok";
+          log.textContent += "\n\n完成。\n" + (msg.text || "");
+        } else if (msg.type === "error") {
+          log.className = "err";
+          log.textContent += "\n\n失败：\n" + msg.text;
+        }
+      };
+    </script>
+  </body>
+</html>
